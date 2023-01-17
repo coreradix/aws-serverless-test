@@ -1,136 +1,112 @@
-# Weather api!
 
-Welcome to the Bilue AWS Engineer Tech Challenge! The purpose of this challenge is to help us assess your technical skills. We know that you have limited time to devote to this task and may not be able to provide the complete solution as you would given more time, so we suggest you focus on the core requirements first, then any additional features if you have time left over.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
 
-## Problem Statement:
-Going to work is part of your routine and you like to plan ahead of time. You have a chat bot which you use everyday to see your calendar. You want to add a new feature to your chat bot to see today's weather. For this chat bot, you want to write an api using AWS serverless which takes a postcode as an input and return back weather information.
+  <h3 align="center">Kakampink API</h3>
 
-We have used open weather map which provide the ability to get weather information by postcode and the sample code has been provided below. Please feel free to use any other api you like.
+  <p align="center">
+    Kakampink Mobile Application API.
+    <br />
+    <a href="https://gitlab.com/fdespineda/api-kkp"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+  </p>
+</div>
 
-    
-### Endpoint: 
-``` 
-GET https://api.openweathermap.org/data/2.5/weather?zip=2000,au&appid={apikey}
-```
+### Built With
 
-### Payload
-
-``` 
-   {
-       "coord": {
-           "lon": 150.8667,
-           "lat": -33.7167
-        },
-        "weather": [{
-            "id": 804,
-            "main": "Clouds",
-            "description": "overcast clouds",
-            "icon": "04d"
-        }],
-        "base": "stations",
-        "main": {
-            "temp": 290.27,
-            "feels_like": 290.23,
-            "temp_min": 288.57,
-            "temp_max": 291.11,
-            "pressure": 1028,
-            "humidity": 84
-        },
-        "visibility": 10000,
-        "wind": {
-            "speed": 3.09,
-            "deg": 210
-        },
-        "clouds": {
-            "all": 88
-        },
-        "dt": 1653353485,
-        "sys": {
-            "type": 2,
-            "id": 2004875,
-            "country": "AU",
-            "sunrise": 1653338846,
-            "sunset": 1653375571
-        },
-        "timezone": 36000,
-        "id": 0,
-        "name": "Schofields",
-        "cod": 200
-    } 
-```
+* [NestJs](https://nestjs.com/)
+* [Serverless Framework](https://serverless.com/)
+* [AWS Lambda](https://aws.amazon.com/lambda/)
+* [AWS DynamoDB](https://aws.amazon.com/dynamodb/)
 
 
+<!-- GETTING STARTED -->
 ## Getting Started
 
-We have provided a bit of boilerplate code that you can use to get started. You are not required to use this boilerplate, so feel free to throw it all away and start fresh if you prefer.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+* install npm dependencies
+  ```
+  $ npm install
+  ```
+* serverless framework
+  ```
+  $ npm install -g serverless
+  ```
+* local dynamodb
+  ```
+  $ sls dynamodb install
+  ```
+
+### Run Locally
 
 ```
-.
-├── README.md
-├── jest.config.js
-├── package.json
-├── serverless.yml
-├── src
-│   ├── @types
-│   │   ├── httpOptions.ts
-│   │   └── index.ts
-│   ├── api
-│   │   └── index.ts
-│   ├── handlers
-│   │   ├── return.ts
-│   │   └── weather.ts
-│   ├── index.ts
-│   ├── services
-│   │   ├── index.ts
-│   │   └── weather.ts
-│   └── utils
-│       ├── httpClient.ts
-│       ├── httpException.ts
-│       ├── httpResponse.ts
-│       └── index.ts
-└── yarn.lock
-
+$ npm run local
 ```
 
-- src -> Utils: all the utility functions like http client are located here. Extend them to make api calls
-- src -> handler: entry point for your serverless app
-- jest.config.js -> Jest is used for testing
-- serverless.yml -> Although we have provided serverless within the project but is not mandatory to use. Use the framework of your choice to deploy your app
+### Deployment
+his example is made to work with the Serverless Framework dashboard, which includes advanced features such as CI/CD, monitoring, metrics, etc.
 
-### How to Use this test
+In order to deploy with dashboard, you need to first login with:
 
-This repo provide you with a problem statement and a boilerplate. Either fork this repo or create your own github repo to create your own version of the solution.
+```
+$ serverless login
+```
 
-You can either submit:
+and then perform deployment with:
 
-- the github link your forked repo which we can deploy in our environment
-- the github link to your forked repo along with url to the working API in aws cloud.
+```
+$ npm run deploy:{stage}
+```
 
-### Task
+After running deploy, you should see output similar to:
 
-- Implement a working api which take postcode and country code and return back the weather.
-- Return data in below format
-  - ``` 
-        {
-            "lon": 150.8667,
-            "lat": -33.7167,
-            "main": "Clouds",
-            "description": "overcast clouds",
-            "temp": 290.27,
-            "feels_like": 290.23,
-            "temp_min": 288.57,
-            "temp_max": 291.11,
-            "pressure": 1028,
-            "humidity": 84
-        }
-    ```
-- Validate input and throw relevant errors
-- Implement basic security around your api
+```bash
+Serverless: Packaging service...
+Serverless: Excluding development dependencies...
+Serverless: Creating Stack...
+Serverless: Checking Stack create progress...
+........
+Serverless: Stack create finished...
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Uploading service aws-node-express-dynamodb-api.zip file to S3 (718.53 KB)...
+Serverless: Validating template...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+....................................
+Serverless: Stack update finished...
+Service Information
+service: aws-node-express-dynamodb-api
+stage: dev
+region: us-east-1
+stack: aws-node-express-dynamodb-api-dev
+resources: 13
+api keys:
+  None
+endpoints:
+  ANY - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/
+  ANY - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/{proxy+}
+functions:
+  api: aws-node-express-dynamodb-api-dev-api
+layers:
+  None
+```
 
+### Roadmap
 
-## Submission
-Please document your solution in the SOLUTION.md file. This should explain why you've made the design choices that you have and clarify anything you feel isn't obvious. Feel free to also include what else you would have done given more time.
-
-Please include instructions on how to run your app if it is not using the boilerplate provided.
-
-Once completed, please upload your solution to a public Github repo and share the link with careers@bilue.com.au
+- [ ] Registration
+- [ ] Login with Username and Password
+- [ ] Home Page
+  - [ ] News
+  - [ ] Events
+- [ ] Profile
+  - [ ] Members
+- [ ] Invite a Member
+  - [ ] SMS
+  - [ ] Social
+  - [ ] Email
